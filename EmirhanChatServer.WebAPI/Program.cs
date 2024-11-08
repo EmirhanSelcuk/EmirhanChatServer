@@ -1,9 +1,11 @@
+using DefaultCorsPolicyNugetPackage;
 using EmirhanChatServer.WebAPI.Context;
 using EmirhanChatServer.WebAPI.Hubs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDefaultCors();
 builder.Services.AddDbContext<AppLicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddControllers();
@@ -20,8 +22,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseStaticFiles();
 
+app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

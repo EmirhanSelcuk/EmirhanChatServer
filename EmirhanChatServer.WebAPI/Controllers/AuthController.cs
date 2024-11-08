@@ -14,7 +14,7 @@ namespace EmirhanChatServer.WebAPI.Controllers
         AppLicationDbContext context) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto request,CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromForm]RegisterDto request,CancellationToken cancellationToken)
         {
             bool isNameExists = await context.Users.AnyAsync(p => p.Name == request.Name,cancellationToken);
 
@@ -32,9 +32,9 @@ namespace EmirhanChatServer.WebAPI.Controllers
             await context.AddAsync(user, cancellationToken);
             await context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(user);
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Login (string name, CancellationToken cancellationToken)
         {
             User? user = await context.Users.FirstOrDefaultAsync(p => p.Name == name, cancellationToken);
