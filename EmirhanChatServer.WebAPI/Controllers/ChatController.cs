@@ -25,7 +25,7 @@ namespace EmirhanChatServer.WebAPI.Controllers
         {
             Chat chat = new()
             {
-                UserId = request.UserId,
+                UserId = request.userId,
                 ToUserId = request.ToUserId,
                 Message = request.message,
                 Date = DateTime.Now

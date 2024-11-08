@@ -1,4 +1,5 @@
 using EmirhanChatServer.WebAPI.Context;
+using EmirhanChatServer.WebAPI.Hubs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddDbContext<AppLicationDbContext>(options => options.UseSqlSer
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -22,5 +25,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chat-hub");
 
 app.Run();
