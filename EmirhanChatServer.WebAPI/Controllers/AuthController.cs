@@ -42,6 +42,8 @@ namespace EmirhanChatServer.WebAPI.Controllers
             {
                 return BadRequest(new { Message = "Kullanıcı bulunamadı" });
             }
+            user.Status = "Online";
+            await context.SaveChangesAsync(cancellationToken);
             return Ok(user);
         }
     }
